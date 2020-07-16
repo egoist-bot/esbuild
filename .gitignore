@@ -3,6 +3,7 @@
 /esbuild
 /esbuild.exe
 /github/
+/npm/esbuild-android-arm64/bin/esbuild
 /npm/esbuild-darwin-64/bin/esbuild
 /npm/esbuild-freebsd-64/bin/esbuild
 /npm/esbuild-freebsd-arm64/bin/esbuild

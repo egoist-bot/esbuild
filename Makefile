@@ -48,7 +48,8 @@ platform-all: update-version-go test-all
 		platform-linux-arm64 \
 		platform-linux-ppc64le \
 		platform-wasm \
-		platform-neutral
+		platform-neutral \
+		platform-android-arm64
 
 platform-windows:
 	cd npm/esbuild-windows-64 && npm version "$(ESBUILD_VERSION)" --allow-same-version
@@ -78,6 +79,9 @@ platform-linux-arm64:
 platform-linux-ppc64le:
 	make GOOS=linux GOARCH=ppc64le NPMDIR=npm/esbuild-linux-ppc64le platform-unixlike
 
+platform-android-arm64:
+	make GOOS=android GOARCH=arm64 NPMDIR=npm/esbuild-android-arm64 platform-unixlike
+
 platform-wasm: | esbuild
 	GOOS=js GOARCH=wasm go build -o npm/esbuild-wasm/esbuild.wasm ./cmd/esbuild
 	cd npm/esbuild-wasm && npm version "$(ESBUILD_VERSION)" --allow-same-version
@@ -98,7 +102,8 @@ publish-all: update-version-go test-all
 		publish-linux \
 		publish-linux-arm64 \
 		publish-linux-ppc64le \
-		publish-wasm
+		publish-wasm \
+		publish-android-arm64
 	make publish-neutral # Do this after to avoid race conditions
 	git commit -am "publish $(ESBUILD_VERSION) to npm"
 	git tag "v$(ESBUILD_VERSION)"
@@ -124,6 +129,9 @@ publish-linux-arm64: platform-linux-arm64
 
 publish-linux-ppc64le: platform-linux-ppc64le
 	test -n "$(OTP)" && cd npm/esbuild-linux-ppc64le && npm publish --otp="$(OTP)"
+
+publish-android-arm64: platform-android-arm64
+	test -n "$(OTP)" && cd npm/esbuild-android-arm64 && npm publish --otp="$(OTP)"
 
 publish-wasm: platform-wasm
 	test -n "$(OTP)" && cd npm/esbuild-wasm && npm publish --otp="$(OTP)"

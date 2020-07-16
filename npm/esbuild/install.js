@@ -104,7 +104,8 @@ const knownUnixlikePackages = {
   'freebsd arm64 LE': 'esbuild-freebsd-arm64',
   'linux x64 LE': 'esbuild-linux-64',
   'linux arm64 LE': 'esbuild-linux-arm64',
-  'linux ppc64 LE': 'esbuild-linux-ppc64le',
+	'linux ppc64 LE': 'esbuild-linux-ppc64le',
+	'android arm64 LE': 'esbuild-android-arm64',
 };
 
 // Pick a package to install
